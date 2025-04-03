@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@theme {
+  --font-display: "Montserrat", sans-serif;
+}
+
+@layer base {
+  * {
+    @apply p-0 m-0 box-border;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
