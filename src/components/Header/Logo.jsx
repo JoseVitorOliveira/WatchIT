@@ -9,7 +9,7 @@ export default function Logo() {
           className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7 text-inherit"
           strokeWidth={2.5}
         />
-        <h1 className="text-2xl md:text-3xl lg:text-4xl font-display font-semibold tracking-tight leading-none text-inherit">
+        <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold tracking-tight leading-none text-inherit">
           WatchIT
         </h1>
       </div>

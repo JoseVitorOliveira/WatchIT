@@ -6,7 +6,7 @@ export default function MobileNavItem({ name, path }) {
       <NavLink
         to={path}
         className={({ isActive }) =>
-          `flex font-display font-bold flex-col items-center justify-center h-full transition-colors
+          `flex font-bold flex-col items-center justify-center h-full transition-colors
            ${isActive ? "text-white" : "text-gray-400 hover:text-blue-400"}`
         }
       >

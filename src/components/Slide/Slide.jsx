@@ -8,6 +8,7 @@ import SlideItem from "./SlideItem";
 
 export default function Slide() {
   const [movieItems, setMovieItems] = useState([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const fetchMovies = async () => {
@@ -31,7 +32,7 @@ export default function Slide() {
   }, []);
 
   return (
-    <section className="mb-12">
+    <section className="">
       {movieItems.length > 0 ? (
         <Swiper
           key={movieItems.length}
@@ -41,10 +42,11 @@ export default function Slide() {
           slidesPerView={1}
           autoplay={{ delay: 4000 }}
           loop={movieItems.length >= 5}
+          onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
         >
-          {movieItems.map((item) => (
+          {movieItems.map((item, index) => (
             <SwiperSlide key={item.id}>
-              <SlideItem item={item} />
+              <SlideItem item={item} isActive={index === activeIndex} />
             </SwiperSlide>
           ))}
         </Swiper>
