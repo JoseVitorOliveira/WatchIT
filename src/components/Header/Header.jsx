@@ -5,10 +5,10 @@ import Navigation from "./Navigation";
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  // Check if the user has scrolled down more than 200px to change the header style
+  // Check if the user has scrolled down more than 100px to change the header style
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 200);
+      setIsScrolled(window.scrollY > 100);
     };
 
     window.addEventListener("scroll", handleScroll);

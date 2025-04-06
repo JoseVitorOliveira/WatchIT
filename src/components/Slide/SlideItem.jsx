@@ -62,7 +62,7 @@ export default function SlideItem({ item, isActive }) {
         </div>
       </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f0f] to-transparent"></div>
+      <div className="absolute inset-0 bg-gradient-to-t from-dark-gray to-transparent"></div>
     </article>
   );
 }

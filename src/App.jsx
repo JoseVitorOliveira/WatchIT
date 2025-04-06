@@ -1,10 +1,9 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Header from "./components/Header/Header";
 import "./styles.css";
 import Home from "./pages/Home";
-import Movies from "./pages/Movies";
-import TvSeries from "./pages/TvSeries";
 import Footer from "./components/Footer/Footer";
+import ContentPage from "./pages/ContentPage";
 
 function App() {
   return (
@@ -12,10 +11,24 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/tv-series" element={<TvSeries />} />
+        <Route path="/movies" element={<ContentPage category={"movies"} />} />
+        <Route
+          path="/tv-series"
+          element={<ContentPage category={"tv-series"} />}
+        />
         <Route path="/movie/:id" element={<h1>Movie Details</h1>} />
         <Route path="/tv-series/:id" element={<h1>TV Details</h1>} />
+
+        {/* Search Routes */}
+
+        <Route
+          path="/movies/search/:keyword"
+          element={<ContentPage category={"movies"} />}
+        />
+        <Route
+          path="/tv-series/search/:keyword"
+          element={<ContentPage category={"tv-series"} />}
+        />
       </Routes>
       <Footer />
     </>

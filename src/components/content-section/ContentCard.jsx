@@ -19,7 +19,7 @@ export default function ContentCard({ item }) {
           </div>
         </div>
         <div className="w-32 md:w-52">
-          <h3 className="text-xs font-bold pt-2 md:text-sm lg:text-lg break-words max-w-full group-hover:text-blue-400 transition-colors duration-300">
+          <h3 className="text-white text-xs font-bold pt-2 md:text-sm lg:text-lg break-words max-w-full group-hover:text-blue-400 transition-colors duration-300">
             {item.title || item.name}
           </h3>
         </div>
