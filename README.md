@@ -1,12 +1,19 @@
-# React + Vite
+# WatchIT 🎥
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+WatchIT is a modern movie and TV show discovery platform that offers users access to the latest and most popular titles, complete with detailed information, search functionality, and more.
 
-Currently, two official plugins are available:
+## Features ✨
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Dynamic Movie and TV Show Listings**: Browse popular, upcoming, and trending movies and TV shows.
+- **Search Functionality**: Search for movies or TV shows by keywords.
+- **Detailed Pages**: View detailed information about a specific movie or TV show, including genres, release date, and overview.
+- **Responsive Design**: Fully responsive UI built with TailwindCSS.
 
-## Expanding the ESLint configuration
+## Tech Stack 🛠️
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend**: React, Vite, TailwindCSS
+- **Routing**: React Router
+- **API**: TMDB API
+- **Animations**: TailwindCSS animations
+- **Skeleton Loading**: react-loading-skeleton
+- **Swiper**: Swiper.js for carousels
