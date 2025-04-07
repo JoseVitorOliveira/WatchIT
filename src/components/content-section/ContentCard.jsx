@@ -2,8 +2,13 @@ import { Link } from "react-router-dom";
 import apiConfig from "../../api/api-config";
 import { Play } from "lucide-react";
 
-export default function ContentCard({ item }) {
-  const link = "/" + item.id;
+export default function ContentCard({ item, category }) {
+  const categoryMap = {
+    movie: "movies",
+    tv: "tv-series",
+  };
+  const link = `/${categoryMap[category]}/${item.id}`;
+
   const bg = apiConfig.w500Image(item.poster_path || item.backdrop_path);
 
   return (

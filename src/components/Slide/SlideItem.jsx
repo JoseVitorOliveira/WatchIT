@@ -10,7 +10,7 @@ export default function SlideItem({ item, isActive }) {
 
   return (
     <article
-      className="relative w-full py-16 px-6 h-[55vh] md:h-[65vh] lg:min-h-screen md:py-24 bg-no-repeat bg-top bg-[length:auto_100%] sm:bg-cover"
+      className="relative w-full py-16 px-6 h-[50vh] md:h-[65vh] lg:min-h-screen md:py-24 bg-no-repeat bg-top bg-[length:auto_100%] sm:bg-cover"
       style={{ backgroundImage: `url(${background})` }}
     >
       <div className="absolute inset-0 bg-black/55"></div>
@@ -28,7 +28,7 @@ export default function SlideItem({ item, isActive }) {
           </h2>
 
           <p
-            className={`text-[10px] font-semibold mb-6 text-white md:text-base lg:text-lg ${
+            className={`text-[11px] font-semibold mb-6 text-white md:text-base lg:text-lg ${
               isActive
                 ? "opacity-0 animate-fade-down animation-delay-200"
                 : "opacity-0"
@@ -45,7 +45,7 @@ export default function SlideItem({ item, isActive }) {
             }`}
           >
             <Link
-              to={`/movie/${item.id}`}
+              to={`/movies/${item.id}`}
               className="bg-blue-600 text-xs font-bold text-white py-2 px-4 rounded-lg shadow-lg hover:bg-blue-800 hover:text-white transition duration-300 md:text-lg"
             >
               More Info

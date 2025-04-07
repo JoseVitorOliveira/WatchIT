@@ -83,6 +83,8 @@ export default function ContentGrid({ category }) {
     }
   };
 
+  const mappedCategory = category === "movies" ? "movie" : "tv";
+
   return (
     <section className="pb-8">
       <div
@@ -106,7 +108,7 @@ export default function ContentGrid({ category }) {
 
       <div className="grid place-items-center gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         {items.map((item, index) => (
-          <ContentCard key={index} category={category} item={item} />
+          <ContentCard key={index} category={mappedCategory} item={item} />
         ))}
       </div>
 

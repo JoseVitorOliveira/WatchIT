@@ -4,6 +4,7 @@ import "./styles.css";
 import Home from "./pages/Home";
 import Footer from "./components/Footer/Footer";
 import ContentPage from "./pages/ContentPage";
+import Details from "./pages/Details";
 
 function App() {
   return (
@@ -16,8 +17,8 @@ function App() {
           path="/tv-series"
           element={<ContentPage category={"tv-series"} />}
         />
-        <Route path="/movie/:id" element={<h1>Movie Details</h1>} />
-        <Route path="/tv-series/:id" element={<h1>TV Details</h1>} />
+        <Route path="/movies/:id" element={<Details />} />
+        <Route path="/tv-series/:id" element={<Details />} />
 
         {/* Search Routes */}
 
