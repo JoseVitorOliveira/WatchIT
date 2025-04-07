@@ -45,4 +45,20 @@
   .animation-delay-400 {
     animation-delay: 400ms;
   }
+
+  @keyframes skeleton-pulse {
+    0%,
+    100% {
+      opacity: 1;
+      filter: brightness(1);
+    }
+    50% {
+      opacity: 0.9;
+      filter: brightness(0.9);
+    }
+  }
+
+  .skeleton-pulse {
+    animation: skeleton-pulse 2s ease-in-out infinite;
+  }
 }

@@ -1,18 +1,24 @@
 import { useState, useEffect } from "react";
 import tmdbApi from "../../api/tmdb-api";
 import apiConfig from "../../api/api-config";
+import CastsSkeleton from "./CastsSkeleton";
 
 export default function Casts({ category, id }) {
   const [casts, setCasts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getCredits = async () => {
+      setLoading(true);
       const apiCategory = category === "movies" ? "movie" : "tv";
       const response = await tmdbApi.credits(apiCategory, id);
       setCasts(response.cast.slice(0, 5));
+      setLoading(false);
     };
     getCredits();
   }, [category, id]);
+
+  if (loading) return <CastsSkeleton />;
 
   return (
     <div className="px-4">

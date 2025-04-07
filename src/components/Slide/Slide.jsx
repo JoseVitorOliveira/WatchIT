@@ -5,13 +5,16 @@ import "swiper/css";
 import "swiper/css/autoplay";
 import tmdbApi, { movieType } from "../../api/tmdb-api";
 import SlideItem from "./SlideItem";
+import SlideSkeleton from "./SlideSkeleton";
 
 export default function Slide() {
   const [movieItems, setMovieItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchMovies = async () => {
+      setIsLoading(true);
       try {
         const response = await tmdbApi.getMoviesList(movieType.popular, {
           params: { page: 1 },
@@ -25,6 +28,8 @@ export default function Slide() {
         setMovieItems(response.results.slice(0, 6));
       } catch (err) {
         console.error("Failed to fetch movies:", err);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,7 +38,9 @@ export default function Slide() {
 
   return (
     <section className="">
-      {movieItems.length > 0 ? (
+      {isLoading ? (
+        <SlideSkeleton />
+      ) : movieItems.length > 0 ? (
         <Swiper
           key={movieItems.length}
           modules={[Autoplay]}
@@ -52,7 +59,7 @@ export default function Slide() {
         </Swiper>
       ) : (
         <div className="flex justify-center items-center h-64 text-gray-500">
-          No movies available
+          <p>No movies available</p>
         </div>
       )}
     </section>

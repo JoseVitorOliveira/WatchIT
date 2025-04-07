@@ -6,11 +6,13 @@ import { useParams } from "react-router-dom";
 import Casts from "../components/casts/Casts";
 import ContentList from "../components/content-section/ContentList";
 import { category as categoryType } from "../api/tmdb-api";
+import DetailsSkeleton from "../components/details-skeleton/DetailsSkeleton";
 
 export default function Details() {
   const { id } = useParams();
 
   const [content, setContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const category = window.location.pathname.split("/")[1];
 
@@ -19,13 +21,24 @@ export default function Details() {
 
   useEffect(() => {
     const getDetail = async () => {
-      const apiCategory = category === "movies" ? "movie" : "tv";
-      const response = await tmdbApi.detail(apiCategory, id, { params: {} });
-      setContent(response);
-      window.scrollTo(0, 0);
+      setIsLoading(true);
+      try {
+        const apiCategory = category === "movies" ? "movie" : "tv";
+        const response = await tmdbApi.detail(apiCategory, id, { params: {} });
+        setContent(response);
+        window.scrollTo(0, 0);
+      } catch (error) {
+        console.error("Erro ao buscar detalhes:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
     getDetail();
   }, [category, id]);
+
+  if (isLoading) {
+    return <DetailsSkeleton category={category} id={id} />;
+  }
 
   return (
     <>
@@ -82,11 +95,11 @@ export default function Details() {
                   </p>
                 </div>
               </section>
-              <section className="bg-dark-gray">
+              <section className="bg-dark-gray mt-2">
                 <Casts category={category} id={id} />
               </section>
               <section className="px-4 pt-6 bg-dark-gray">
-                <h1 className="text-white text-base font-bold md:text-lg">
+                <h1 className="text-white text-base font-bold md:text-lg mb-4">
                   Similar
                 </h1>
                 <ContentList

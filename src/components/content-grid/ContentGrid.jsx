@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import tmdbApi, { movieType, tvType } from "../../api/tmdb-api";
 import SearchInput from "../search-input/SearchInput";
 import ContentCard from "../content-section/ContentCard";
+import ContentCardSkeleton from "../content-section/ContentCardSkeleton";
 import headerBg from "../../assets/posters-bg.jpg";
 
 export default function ContentGrid({ category }) {
@@ -10,14 +11,15 @@ export default function ContentGrid({ category }) {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
+  const [loading, setLoading] = useState(true);
 
   const { keyword } = useParams();
 
   useEffect(() => {
     const getList = async () => {
+      setLoading(true);
       let response = null;
       const params = { page: 1 };
-
       const apiCategory = category === "movies" ? "movie" : "tv";
 
       if (keyword === undefined) {
@@ -44,6 +46,7 @@ export default function ContentGrid({ category }) {
       setItems(results.slice(0, 15));
       setPage(1);
       setTotalPage(response.total_pages);
+      setLoading(false);
     };
 
     getList();
@@ -94,6 +97,7 @@ export default function ContentGrid({ category }) {
         <div className="absolute inset-0 bg-black/75"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-dark-gray to-transparent"></div>
       </div>
+
       <h1 className="text-white text-2xl md:text-3xl lg:text-3xl font-bold text-center mb-6">
         {category === "movies"
           ? "Movies"
@@ -107,12 +111,16 @@ export default function ContentGrid({ category }) {
       </div>
 
       <div className="grid place-items-center gap-4 grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-        {items.map((item, index) => (
-          <ContentCard key={index} category={mappedCategory} item={item} />
-        ))}
+        {loading
+          ? Array.from({ length: 10 }).map((_, idx) => (
+              <ContentCardSkeleton key={idx} />
+            ))
+          : items.map((item, index) => (
+              <ContentCard key={index} category={mappedCategory} item={item} />
+            ))}
       </div>
 
-      {items.length < allItems.length || page < totalPage ? (
+      {!loading && (items.length < allItems.length || page < totalPage) ? (
         <div className="movie-grid__loadmore mt-4 text-center pt-6 pb-10">
           <button
             className="px-6 py-2 bg-blue-500 text-white rounded-lg cursor-pointer hover:bg-blue-600 transition duration-300"
