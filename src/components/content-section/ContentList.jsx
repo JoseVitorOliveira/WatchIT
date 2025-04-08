@@ -28,7 +28,7 @@ export default function ContentList(props) {
         }
         setItems(response.results);
       } catch (err) {
-        console.error("Erro ao carregar lista:", err);
+        console.error("Error fetching content list:", err);
       } finally {
         setLoading(false);
       }

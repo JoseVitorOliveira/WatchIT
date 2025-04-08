@@ -12,45 +12,58 @@ export default function ContentGrid({ category }) {
   const [page, setPage] = useState(1);
   const [totalPage, setTotalPage] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   const { keyword } = useParams();
+  const apiCategory = category === "movies" ? "movie" : "tv";
 
   useEffect(() => {
     const getList = async () => {
       setLoading(true);
+      setError(false);
       let response = null;
       const params = { page: 1 };
-      const apiCategory = category === "movies" ? "movie" : "tv";
 
-      if (keyword === undefined) {
-        switch (apiCategory) {
-          case "movie":
-            response = await tmdbApi.getMoviesList(movieType.upcoming, {
-              params,
-            });
-            break;
-          case "tv":
-            response = await tmdbApi.getTvList(tvType.popular, { params });
-            break;
-          default:
-            break;
+      try {
+        if (keyword === undefined) {
+          switch (apiCategory) {
+            case "movie":
+              response = await tmdbApi.getMoviesList(movieType.upcoming, {
+                params,
+              });
+              break;
+            case "tv":
+              response = await tmdbApi.getTvList(tvType.popular, { params });
+              break;
+            default:
+              break;
+          }
+        } else {
+          params.query = keyword;
+          response = await tmdbApi.search(apiCategory, { params });
         }
-      } else {
-        params.query = keyword;
-        response = await tmdbApi.search(apiCategory, { params });
+
+        const results = response.results || [];
+        setAllItems(results);
+        setItems(results.slice(0, 15));
+        setPage(1);
+        setTotalPage(response.total_pages);
+      } catch (err) {
+        console.error("Error fetching content grid:", err);
+        setError(true);
+      } finally {
+        setLoading(false);
       }
-
-      const results = response.results || [];
-
-      setAllItems(results);
-      setItems(results.slice(0, 15));
-      setPage(1);
-      setTotalPage(response.total_pages);
-      setLoading(false);
     };
 
     getList();
-  }, [keyword, category]);
+  }, [keyword, category, apiCategory]);
+
+  if (error) {
+    return (
+      <ErrorPage message="Failed to load content. Please try again later." />
+    );
+  }
 
   const loadMore = async () => {
     const currentCount = items.length;
@@ -64,8 +77,8 @@ export default function ContentGrid({ category }) {
 
       let response = null;
       if (keyword === undefined) {
-        switch (category) {
-          case category.movie:
+        switch (apiCategory) {
+          case "movie":
             response = await tmdbApi.getMoviesList(movieType.upcoming, {
               params,
             });

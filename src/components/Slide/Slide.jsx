@@ -6,15 +6,18 @@ import "swiper/css/autoplay";
 import tmdbApi, { movieType } from "../../api/tmdb-api";
 import SlideItem from "./SlideItem";
 import SlideSkeleton from "./SlideSkeleton";
+import ErrorPage from "../../pages/ErrorPage";
 
 export default function Slide() {
   const [movieItems, setMovieItems] = useState([]);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchMovies = async () => {
       setIsLoading(true);
+      setError(false);
       try {
         const response = await tmdbApi.getMoviesList(movieType.popular, {
           params: { page: 1 },
@@ -28,6 +31,7 @@ export default function Slide() {
         setMovieItems(response.results.slice(0, 6));
       } catch (err) {
         console.error("Failed to fetch movies:", err);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -35,6 +39,12 @@ export default function Slide() {
 
     fetchMovies();
   }, []);
+
+  if (error) {
+    return (
+      <ErrorPage message="Failed to load the slider. Please try again later." />
+    );
+  }
 
   return (
     <section className="">

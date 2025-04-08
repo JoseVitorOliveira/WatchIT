@@ -7,14 +7,16 @@ import Casts from "../components/casts/Casts";
 import ContentList from "../components/content-section/ContentList";
 import { category as categoryType } from "../api/tmdb-api";
 import DetailsSkeleton from "../components/details-skeleton/DetailsSkeleton";
+import ErrorPage from "./ErrorPage";
 
 export default function Details() {
   const { id } = useParams();
 
   const [content, setContent] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
 
-  const category = window.location.pathname.split("/")[1];
+  const category = window.location.pathname.split("/")[2];
 
   const contentListCategory =
     category === "movies" ? categoryType.movie : categoryType.tv;
@@ -22,19 +24,26 @@ export default function Details() {
   useEffect(() => {
     const getDetail = async () => {
       setIsLoading(true);
+      setError(false);
       try {
         const apiCategory = category === "movies" ? "movie" : "tv";
         const response = await tmdbApi.detail(apiCategory, id, { params: {} });
         setContent(response);
-        window.scrollTo(0, 0);
       } catch (error) {
-        console.error("Erro ao buscar detalhes:", error);
+        console.error("Error fetching details:", error);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
     };
     getDetail();
   }, [category, id]);
+
+  if (error) {
+    return (
+      <ErrorPage message="Failed to load the details. Please try again later." />
+    );
+  }
 
   if (isLoading) {
     return <DetailsSkeleton category={category} id={id} />;

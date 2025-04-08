@@ -14,6 +14,5 @@ WatchIT is a modern movie and TV show discovery platform that offers users acces
 - **Frontend**: React, Vite, TailwindCSS
 - **Routing**: React Router
 - **API**: TMDB API
-- **Animations**: TailwindCSS animations
 - **Skeleton Loading**: react-loading-skeleton
 - **Swiper**: Swiper.js for carousels

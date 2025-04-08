@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import Footer from "./components/Footer/Footer";
 import ContentPage from "./pages/ContentPage";
 import Details from "./pages/Details";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -29,6 +30,15 @@ function App() {
         <Route
           path="/tv-series/search/:keyword"
           element={<ContentPage category={"tv-series"} />}
+        />
+
+        {/* 404 Not Found Route */}
+
+        <Route
+          path="*"
+          element={
+            <ErrorPage message="Page not found. Please check the URL." />
+          }
         />
       </Routes>
       <Footer />
