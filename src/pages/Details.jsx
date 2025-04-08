@@ -98,7 +98,7 @@ export default function Details() {
               <section className="bg-dark-gray mt-2">
                 <Casts category={category} id={id} />
               </section>
-              <section className="px-4 pt-6 bg-dark-gray">
+              <section className="px-4 pt-6 pb-6 bg-dark-gray">
                 <h1 className="text-white text-base font-bold md:text-lg mb-4">
                   Similar
                 </h1>
